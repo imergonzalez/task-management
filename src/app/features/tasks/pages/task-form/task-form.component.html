@@ -1,1 +1,11 @@
-<p>task-form works!</p>
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="block">
+  <input formControlName="title" placeholder="Task title">
+  <button type="submit">Add Task</button>
+</form>
+
+<ul class="block">
+  <li *ngFor="let task of tasks$ | async">
+    {{ task.title }} - {{ task.completada ? 'Completed' : 'Pending' }}
+    <button (click)="completarTarea(task.id)">Complete</button>
+  </li>
+</ul>
