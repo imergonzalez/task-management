@@ -10,4 +10,9 @@ import { ButtonModule } from 'primeng/button';
 })
 export class NavbarComponent {
 
+  
+
+  agregarTarea() {
+
+  }
 }
