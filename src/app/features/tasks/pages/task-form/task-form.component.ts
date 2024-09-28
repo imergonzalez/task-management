@@ -17,31 +17,31 @@ import { TaskStore } from 'src/app/state/task/task.store';
 })
 export class TaskFormComponent{
 
-  taskForm: FormGroup;
-  tasks$: Observable<Task[]> = of([]);
+  // taskForm: FormGroup;
+  // tasks$: Observable<Task[]> = of([]);
 
-  constructor(
-    private builder: FormBuilder,
-    private taskStateService: TaskStateService,
-    private taskQuery: TaskQuery
-  ) {
-    this.taskForm = builder.group({
-      title: ['', Validators.required]
-    });
-  }
+  // constructor(
+  //   private builder: FormBuilder,
+  //   private taskStateService: TaskStateService,
+  //   private taskQuery: TaskQuery
+  // ) {
+  //   this.taskForm = builder.group({
+  //     title: ['', Validators.required]
+  //   });
+  // }
 
-  ngOnInit(): void {
-    this.tasks$ = this.taskQuery.selectAll();
-  }
+  // ngOnInit(): void {
+  //   this.tasks$ = this.taskQuery.selectAll();
+  // }
 
-  onSubmit() {
-    const newTask = this.taskForm.value;
+  // onSubmit() {
+  //   const newTask = this.taskForm.value;
 
-    this.taskStateService.agregarTarea(newTask);
-    this.taskForm.reset();
-  }
+  //   this.taskStateService.agregarTarea(newTask);
+  //   this.taskForm.reset();
+  // }
 
-  completarTarea(id: number) {
-    this.taskStateService.completarTarea(id);
-  }
+  // completarTarea(id: number) {
+  //   this.taskStateService.completarTarea(id);
+  // }
 }

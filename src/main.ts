@@ -8,11 +8,11 @@
 
 import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
-import { TaskFormComponent } from './app/features/tasks/pages/task-form/task-form.component';
 import { AppComponent } from './app/app.component';
+import { TaskListComponent } from './app/features/tasks/pages/task-list/task-list.component';
 
 const routes = [
-  { path: '', component: TaskFormComponent }
+  { path: '', component: TaskListComponent }
 ];
 
 bootstrapApplication(AppComponent, {

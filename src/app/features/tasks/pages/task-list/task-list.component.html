@@ -1,1 +1,26 @@
-<p>task-list works!</p>
+<p-table *ngIf="!isMobile" [value]="tasks" class="hidden md:block">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Title</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-person>
+    <tr>
+      <td>{{ person.title }}</td>
+      <!-- <td>{{ person.edad }}</td>
+      <td><img [src]="person.foto" alt="Foto de {{ person.nombre }}" class="h-10 w-10 rounded-full"></td> -->
+    </tr>
+  </ng-template>
+</p-table>
+
+
+<div *ngIf="isMobile" class="md:hidden">
+  <p-panel *ngFor="let person of [{nombre: 'IMER', foto: '', edad: 20}]" [header]="person.nombre">
+    <div class="flex items-center">
+      <img [src]="person.foto" alt="Foto de {{ person.nombre }}" class="h-16 w-16 rounded-full mr-4">
+      <div>
+        <p>Edad: {{ person.edad }}</p>
+      </div>
+    </div>
+  </p-panel>
+</div>
