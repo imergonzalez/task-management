@@ -1,14 +1,24 @@
 <p-table *ngIf="!isMobile" [value]="tasks" class="hidden md:block">
   <ng-template pTemplate="header">
     <tr>
-      <th>Title</th>
+      <th>Titulo</th>
+      <th>Fecha limite</th>
+      <th>Personas asociadas</th>
+      <th>Acciones</th>
     </tr>
   </ng-template>
   <ng-template pTemplate="body" let-person>
     <tr>
       <td>{{ person.title }}</td>
-      <!-- <td>{{ person.edad }}</td>
-      <td><img [src]="person.foto" alt="Foto de {{ person.nombre }}" class="h-10 w-10 rounded-full"></td> -->
+      <td>{{ person.fechaLimite }}</td>
+      <td>
+        <p *ngFor="let i of person.personaAsignada">
+          {{ i.nombre }}
+        </p>
+      </td>
+      <td>
+        <button class="bg-[red] rounded-md text-white p-1 font-semibold" (click)="eliminarTarea(person.id)">Eliminar</button>
+      </td>
     </tr>
   </ng-template>
 </p-table>

@@ -7,6 +7,8 @@ import { Observable, of } from 'rxjs';
 import { Task } from 'src/app/core/models/task.model';
 import { TaskQuery } from 'src/app/state/task/task.query';
 import { FormControl, FormGroup, ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { TaskService } from 'src/app/core/services/task.service';
+import { TaskStateService } from 'src/app/state/task/task.service';
 
 @Component({
   selector: 'app-task-list',
@@ -36,63 +38,64 @@ export class TaskListComponent implements OnInit {
   ];
 
   constructor(
-    private readonly taskQuery: TaskQuery
+    private readonly taskQuery: TaskQuery,
+    private readonly taskService: TaskStateService
   ) {
-    this.tasks = [
-      {
-        id: 1,
-        title: 'BUGS ECOMMERCE',
-        fechaLimite: '30-09-2024',
-        completada: false,
-        personaAsignada: [
-          {
-            id: 1,
-            nombre: "Imer",
-            edad: 22,
-            skill: [
-              {
-                id: 1,
-                descripcion: "Angular"
-              }
-            ]
-          }
-        ]
-      },
-      {
-        id: 2,
-        title: 'BUGS APP',
-        fechaLimite: '30-09-2024',
-        completada: true,
-        personaAsignada: [
-          {
-            id: 1,
-            nombre: "Imer",
-            edad: 22,
-            skill: [
-              {
-                id: 1,
-                descripcion: "Angular"
-              }
-            ]
-          },
-          {
-            id: 2,
-            nombre: "Antonio",
-            edad: 20,
-            skill: [
-              {
-                id: 1,
-                descripcion: "Angular"
-              },
-              {
-                id: 2,
-                descripcion: "React"
-              }
-            ]
-          }
-        ]
-      }
-    ];
+    // this.tasks = [
+    //   {
+    //     id: 1,
+    //     title: 'BUGS ECOMMERCE',
+    //     fechaLimite: '30-09-2024',
+    //     completada: false,
+    //     personaAsignada: [
+    //       {
+    //         id: 1,
+    //         nombre: "Imer",
+    //         edad: 22,
+    //         skill: [
+    //           {
+    //             id: 1,
+    //             descripcion: "Angular"
+    //           }
+    //         ]
+    //       }
+    //     ]
+    //   },
+    //   {
+    //     id: 2,
+    //     title: 'BUGS APP',
+    //     fechaLimite: '30-09-2024',
+    //     completada: true,
+    //     personaAsignada: [
+    //       {
+    //         id: 1,
+    //         nombre: "Imer",
+    //         edad: 22,
+    //         skill: [
+    //           {
+    //             id: 1,
+    //             descripcion: "Angular"
+    //           }
+    //         ]
+    //       },
+    //       {
+    //         id: 2,
+    //         nombre: "Antonio",
+    //         edad: 20,
+    //         skill: [
+    //           {
+    //             id: 1,
+    //             descripcion: "Angular"
+    //           },
+    //           {
+    //             id: 2,
+    //             descripcion: "React"
+    //           }
+    //         ]
+    //       }
+    //     ]
+    //   }
+    // ];
   }
 
   @HostListener('window:resize', ['$event'])
@@ -105,9 +108,13 @@ export class TaskListComponent implements OnInit {
     this.formGroup = new FormGroup({
       value: new FormControl('all')
     });
-    // this.tasks$ = this.taskQuery.getTareas();
-    // this.tasks$.subscribe((tasks) => {
-    //   this.tasks = tasks;
-    // })
+    this.tasks$ = this.taskQuery.getTareas();
+    this.tasks$.subscribe((tasks) => {
+      this.tasks = tasks;
+    })
+  }
+
+  eliminarTarea(idTask: number) {
+    this.taskService.eliminarTarea(idTask);
   }
 }

@@ -9,9 +9,104 @@
     <button (click)="completarTarea(task.id)">Complete</button>
   </li>
 </ul> -->
-<p-dialog header="Header" [(visible)]="visible" [style]="{width: '50vw'}">
-  <p>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-      consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </p>
-</p-dialog>
+<!-- <p-dialog
+
+
+  header="Nueva tarea"
+  [(visible)]="visible"
+  [draggable]="false"
+  [resizable]="false"
+  class="w-[90%] md:w-[45%]"
+  position="top"
+  [modal]="true"
+  (onHide)="onClose()"
+>
+  <div>
+    <form
+    class=""
+  >
+    <div>
+
+      <span class="p-float-label">
+        <input pInputText id="username" formControlName="title" />
+        <label htmlFor="username">Titulo</label>
+      </span>
+
+      <p-calendar formControlName="date"></p-calendar>
+
+    </div>
+
+  </form>
+  </div>
+</p-dialog> -->
+
+<div class="card flex justify-between">
+  <p-dialog
+    header="Nueva tarea"
+    [draggable]="false"
+    [modal]="false"
+    [position]="'top'"
+    [(visible)]="visible"
+    [style]="{ width: '25rem' }"
+    (onHide)="onClose()"
+  >
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+    <span class="text-xl block mb-5"><b>Tarea</b></span>
+  
+    <div class="">
+      <div class="mb-2">
+        <label for="title" class="block mb-2 text-sm font-medium text-gray-900">Titulo</label>
+        <input type="text" id="title"
+          class="bg-gray-50 border border-[gray] text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2 "
+          placeholder="Bugs App" required formControlName="title" />
+      </div>
+  
+      <div>
+        <label for="first_name" class="block mb-2 text-sm font-medium text-gray-900">Entrega</label>
+        <input type="text" id="first_name"
+          class="bg-gray-50 border border-[gray] text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2 "
+          placeholder="10/10/2024" required formControlName="fechaLimite" />
+      </div>
+    </div>
+  
+    <!-- Personas Asignadas -->
+    <div class="flex items-center justify-between">
+      <span class="mt-4 text-xl block mb-5"><b>Personas</b></span>
+      <button class="bg-[#22c45f] p-1 text-sm text-white font-semibold rounded-md" type="button" (click)="agregarPersona()">
+        Agregar Persona
+      </button>
+    </div>
+    <div formArrayName="personaAsignada">
+      <div *ngFor="let person of personaAsignada.controls; let i = index" [formGroupName]="i">
+        <label for="nombre" class="block mb-2 text-sm font-medium text-gray-900">Nombre:</label>
+        <input id="nombre" formControlName="nombre" class="bg-gray-50 border border-[gray] text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2 "/>
+  
+        <label for="edad" class="block mb-2 text-sm font-medium text-gray-900">Edad:</label>
+        <input id="edad" type="number" formControlName="edad" class="bg-gray-50 border border-[gray] text-gray-900 text-sm rounded-lg focus:ring-blue-500 block w-full p-2 "/>
+  
+        <!-- Habilidades -->
+        <div formArrayName="skill">
+          <div *ngFor="let skill of getSkills(i).controls; let j = index" [formGroupName]="j">
+
+            <label for="descripcion" class="block mb-2 text-sm font-medium text-gray-900">Habilidad:</label>
+
+            <div class="flex items-center justify-between space-x-2">
+              <div>
+                <input id="descripcion" formControlName="descripcion" class="w-full bg-gray-50 border border-[gray] text-gray-900 text-sm rounded-lg focus:ring-blue-500 block p-2"/>
+              </div>
+              <button type="button" (click)="removerSkill(i, j)">
+                <i class="pi pi-trash text-[red]"></i>
+              </button>
+            </div>
+          </div>
+          <button type="button" class="mt-2 p-1 text-sm bg-[#3a82f7] rounded-md text-white active:none" (click)="agregarSkill(i)">Nueva Habilidad</button>
+        </div>
+        <button class="mt-2 bg-[#ef4545] p-1 text-sm text-white font-semibold rounded-md" type="button" (click)="removerPersona(i)">Eliminar Persona</button>
+      </div>
+    </div>
+    <button class="mt-4 w-full p-2 bg-[#3b82f6] rounded-md text-white font-semibold" type="submit">Crear Tarea</button>
+  </form>
+  </p-dialog>
+</div>
+
+<p-toast />
