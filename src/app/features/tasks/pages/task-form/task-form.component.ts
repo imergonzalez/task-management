@@ -1,21 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { TaskStateService } from 'src/app/state/task/task.service';
-import { Observable, of } from 'rxjs';
-import { Task } from 'src/app/core/models/task.model';
-import { TaskQuery } from 'src/app/state/task/task.query';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TaskStore } from 'src/app/state/task/task.store';
+import { DialogModule } from 'primeng/dialog';
 
 @Component({
   selector: 'app-task-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    DialogModule
+  ],
   providers: [TaskStore],
   templateUrl: './task-form.component.html',
   styleUrls: ['./task-form.component.css']
 })
 export class TaskFormComponent{
+
+  @Input({required: true}) visible: boolean = false;
 
   // taskForm: FormGroup;
   // tasks$: Observable<Task[]> = of([]);

@@ -10,6 +10,7 @@ import { bootstrapApplication } from '@angular/platform-browser';
 import { provideRouter } from '@angular/router';
 import { AppComponent } from './app/app.component';
 import { TaskListComponent } from './app/features/tasks/pages/task-list/task-list.component';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 const routes = [
   { path: '', component: TaskListComponent }
@@ -17,6 +18,7 @@ const routes = [
 
 bootstrapApplication(AppComponent, {
   providers: [
-    provideRouter(routes) // Proveedor de enrutador
+    provideRouter(routes),
+    provideAnimations()
   ]
 });

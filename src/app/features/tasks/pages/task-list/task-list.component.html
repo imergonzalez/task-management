@@ -15,12 +15,60 @@
 
 
 <div *ngIf="isMobile" class="md:hidden">
-  <p-panel *ngFor="let person of [{nombre: 'IMER', foto: '', edad: 20}]" [header]="person.nombre">
-    <div class="flex items-center">
-      <img [src]="person.foto" alt="Foto de {{ person.nombre }}" class="h-16 w-16 rounded-full mr-4">
-      <div>
-        <p>Edad: {{ person.edad }}</p>
-      </div>
-    </div>
-  </p-panel>
+
+  <div class="card flex justify-content-center">
+    <form [formGroup]="formGroup">
+        <p-selectButton [options]="filterOptions" formControlName="value" optionLabel="label" optionValue="value"></p-selectButton>
+    </form>
+  </div>
+
+  <p-accordion class="w-full">
+    <p-accordionTab *ngFor="let task of tasks">
+      <ng-template pTemplate="header">
+        <div class="w-full flex items-center justify-between">
+          <span>
+            {{ task.title }}
+          </span>
+          <span [ngClass]="{
+            'bg-[#22c45f]': task.completada,
+            'bg-[#f49f0b]': !task.completada,
+            'text-white font-semibold p-1 rounded-md': true
+          }">
+            {{ task.completada ? 'Completada' : 'Pendiente' }}
+          </span>
+        </div>
+      </ng-template>
+      <ng-template pTemplate="content">
+        <span
+          class="flex items-center justify-between"
+        >
+          Fecha limite: <b>{{ task.fechaLimite }}</b>
+        </span>
+        <p class="mt-4">
+          <b>Personas asignadas</b>
+        </p>
+        <hr>
+
+        <div *ngFor="let person of task.personaAsignada">
+          <p class="mt-2 flex justify-between">Nombre: <b>{{ person.nombre }}</b></p>
+
+          <p class="flex justify-between">Edad: <b>{{ person.edad }}</b></p>
+
+
+          <p class="mt-4 mb-1"><b>Habilidades</b></p>
+          <div
+            class="flex gap-1 flex-wrap mb-1"
+          >
+            <span
+              *ngFor="let sk of person.skill"
+              class="bg-[#3a82f7] text-white font-semibold p-1 rounded-md">
+              {{ sk.descripcion }}
+            </span>
+          </div>
+
+          <hr>
+        </div>
+      </ng-template>
+    </p-accordionTab>
+  </p-accordion>
 </div>

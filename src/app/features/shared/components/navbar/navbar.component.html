@@ -10,9 +10,15 @@
   <div>
     <button
       class="flex items-center gap-2 mr-2 p-2 bg-[#3a82f7] rounded-md text-white active:none"
+      (click)="agregarTarea()"
     >
       <i class="pi pi-plus"></i>
       <span class="text-[18px] font-semibold">New</span>
     </button>
   </div>
 </div>
+
+<app-task-form
+  [visible]="visible"
+>
+</app-task-form>
