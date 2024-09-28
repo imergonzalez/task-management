@@ -1,9 +1,17 @@
-<p-table *ngIf="!isMobile" [value]="tasks" class="hidden md:block">
+
+<div class="hidden md:block mt-4 mb-4 card flex justify-content-center">
+  <form [formGroup]="formGroup">
+      <p-selectButton [options]="filterOptions" formControlName="value" optionLabel="label" optionValue="value"></p-selectButton>
+  </form>
+</div>
+
+<p-table *ngIf="!isMobile" [value]="tasks" class="mt-4 hidden md:block">
   <ng-template pTemplate="header">
     <tr>
       <th>Titulo</th>
       <th>Fecha limite</th>
       <th>Personas asociadas</th>
+      <th>Estado</th>
       <th>Acciones</th>
     </tr>
   </ng-template>
@@ -17,7 +25,17 @@
         </p>
       </td>
       <td>
+        <span [ngClass]="{
+          'bg-[#22c45f]': person.completada,
+          'bg-[#f49f0b]': !person.completada,
+          'text-white font-semibold p-1 rounded-md': true
+        }">
+        {{ person.completada ? 'Completada' : 'Pendiente' }}</span>
+      </td>
+      <td class="flex gap-2">
         <button class="bg-[red] rounded-md text-white p-1 font-semibold" (click)="eliminarTarea(person.id)">Eliminar</button>
+
+        <button class="bg-[#017301] rounded-md text-white p-1 font-semibold" (click)="completarTarea(person.id)">Completar</button>
       </td>
     </tr>
   </ng-template>

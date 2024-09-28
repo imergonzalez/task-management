@@ -108,7 +108,7 @@ export class TaskListComponent implements OnInit {
     this.formGroup = new FormGroup({
       value: new FormControl('all')
     });
-    this.tasks$ = this.taskQuery.getTareas();
+    this.tasks$ = this.taskQuery.getByFilter(this.formGroup.get('value')?.value);
     this.tasks$.subscribe((tasks) => {
       this.tasks = tasks;
     })
@@ -116,5 +116,9 @@ export class TaskListComponent implements OnInit {
 
   eliminarTarea(idTask: number) {
     this.taskService.eliminarTarea(idTask);
+  }
+
+  completarTarea(idTask: number) {
+    this.taskService.completarTarea(idTask);
   }
 }

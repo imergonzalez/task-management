@@ -9,6 +9,15 @@ export class TaskQuery extends QueryEntity<TaskState, Task> {
     super(store);
   }
 
+  getByFilter(filter: string) {
+    if (filter == 'all') {
+      return this.getTareas();
+    } else if (filter == 'completed') {
+      return this.getTareasCompletadas();
+    }
+
+    return this.getTareasPendientes();
+  }
   getTareas() {
     return this.selectAll();
   }
