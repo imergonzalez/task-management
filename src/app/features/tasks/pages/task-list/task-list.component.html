@@ -96,6 +96,12 @@
 
           <hr>
         </div>
+
+        <div class="mt-2 flex items-center justify-between">
+          <button class="bg-[red] rounded-md text-white p-1 font-semibold" (click)="eliminarTarea(task.id)">Eliminar</button>
+
+          <button class="bg-[#017301] rounded-md text-white p-1 font-semibold" (click)="completarTarea(task.id)">Completar</button>
+        </div>
       </ng-template>
     </p-accordionTab>
   </p-accordion>
